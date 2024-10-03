@@ -44,6 +44,7 @@ int main()
             break;
         default:
             cout << "Invalid Operator" << endl;
+            break;
         }
     }
     return 0;
