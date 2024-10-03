@@ -52,5 +52,4 @@ int main()
 
     cout << "Your monthly installment = " << monthly << endl;
 
-    ;
 }
