@@ -19,11 +19,11 @@ int main()
 
     if (first > second)
     {
-        log (first + " is greater than " + second, true);
+        log (to_string(first) + " is greater", true);
     }
     else if (first < second)
     {
-        log (second + " is greater than " + first, true);
+        log (to_string(second) + " is greater", true);
     }
     else
     {
