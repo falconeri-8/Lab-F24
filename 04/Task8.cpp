@@ -10,20 +10,24 @@ void log(string message, bool newLine) {
 int main()
 {
     char input = 'a';
-    log ("Input a value : ", false);
-    cin >> input;
 
-    if (isdigit(input))
+    while (true)
     {
-        input%2==0 ? log("Even Digit", true) : log("Odd digit", true);
-    }
-    else if (isalpha(input))
-    {
-        isupper(input) ? log("Uppercase Alphabet", true) : log("Lowercase Alphabet", true);
-    }
-    else
-    {
-        log ("We have a special symbol", true);
+        log ("Input a value : ", false);
+        cin >> input;
+
+        if (isdigit(input))
+        {
+            input%2==0 ? log("Even Digit", true) : log("Odd digit", true);
+        }
+        else if (isalpha(input))
+        {
+            isupper(input) ? log("Uppercase Alphabet", true) : log("Lowercase Alphabet", true);
+        }
+        else
+        {
+            log ("We have a special symbol", true);
+        }
     }
 
 }
