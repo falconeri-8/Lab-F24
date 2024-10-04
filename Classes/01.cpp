@@ -56,5 +56,5 @@ int main() {
     else {
         log ("Invalid input", true);
     }
-
+    return 0;
 }
