@@ -21,5 +21,6 @@ add_executable(Task3.4 03/Task4.cpp)
 add_executable(Task4.1 04/Task1.cpp)
 add_executable(Task4.2 04/Task2.cpp)
 add_executable(Task4.3 04/Task3.cpp)
+add_executable(Task4.4 04/Task4.cpp)
 
 add_executable(Classes.01 Classes/01.cpp)
