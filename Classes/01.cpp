@@ -36,7 +36,6 @@ class fuelCalculator: public expenseCalculator {
         }
 };
 
-
 int main() {
     int input;
 
@@ -56,5 +55,5 @@ int main() {
     else {
         log ("Invalid input", true);
     }
-    return 0;
+
 }
