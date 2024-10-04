@@ -16,7 +16,7 @@ int main()
         else if (marks >= 50 && marks <= 59) {
             cout << message << "Grade D" << endl;
         }
-        else if (marks >= 60 && marks < 71) {
+        else if (marks >= 60 && marks <= 71) {
             cout << message << "Grade C" << endl;
         }
         else if (marks >= 72 && marks <= 84) {
