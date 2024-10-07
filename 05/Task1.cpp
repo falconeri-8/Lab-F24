@@ -2,14 +2,8 @@
 
 using namespace std;
 
-void log(string message, bool newLine)
-{
-    if (newLine) {
-        cout << message << endl;
-    }
-    else {
-        cout << message;
-    }
+void log(string message, bool newLine) {
+    newLine == true ? cout << message << "\n" : cout << message;
 }
 
 int getFactorial(int n)
@@ -29,5 +23,4 @@ int main()
 
     cin >> number;
     log(to_string(getFactorial(number)), true);
-
 }
