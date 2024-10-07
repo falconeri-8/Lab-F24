@@ -9,7 +9,7 @@ void log(string message, bool newLine) {
 int main()
 {
     log("Enter Positive integers to get count, min, max & average", true);
-    log("Get Result with -1", true);
+    log("Exit & Get Result with -1", true);
 
     int input, min, max, sum, count;
 
