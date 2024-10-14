@@ -1,3 +1,7 @@
+// My bad code for a TicTacToe game but readable
+// Does not use any external libraries just "beautiful" raw language
+// Contributions are appreciated
+
 #include <iostream>
 
 using namespace std;
