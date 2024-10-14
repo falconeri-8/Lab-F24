@@ -8,9 +8,28 @@ void log(string message, bool newLine) {
 
 int GetPopulationSize( int prevSize, int birthRate, int deathRate, int numYears)
 {
-    int populationSize = prevSize + (birthRate * prevSize) - (deathRate * prevSize);
-    // numYears * populationSize // Task formula shows no value for numYears
+    float populationSize = prevSize;
+
+    for (int i = 0; i < numYears; ++i) {
+        populationSize += ((birthRate/100.0) * populationSize) - ((deathRate/100.0) * populationSize);
+    }
+
     return (populationSize);
+}
+
+int recur(string message, int condition)
+{
+    int prev;
+
+    cin >> prev;
+
+    if (prev <= condition)
+    {
+        log(message, true);
+        prev = recur(message, condition);
+    }
+
+    return prev;
 }
 
 int main()
@@ -19,9 +38,9 @@ int main()
 
     log("Calculate population size for given years", true);
     log ("Input starting population size", true);
-    cin >> prevSize;
+    prevSize = recur("Starting population should be greater than 1", 1);
     log ("Input annual birth rate", true);
-    cin >> birthRate;
+    birthRate = recur("Annual birth rate should be greater than 0", 0);
     log ("Input annual death rate", true);
     cin >> deathRate;
     log ("Input for number of years", true);
