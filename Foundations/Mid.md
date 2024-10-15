@@ -45,7 +45,6 @@ Avoid negative remainders
 ```cpp
 int positiveRemainder = (dividend % divisor + divisor) % divisor;
 ```
-<br><br>
 
 ## Exception Handling
 
