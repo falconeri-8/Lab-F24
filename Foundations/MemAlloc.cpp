@@ -1,6 +1,4 @@
-#include <cmath>
-
-#include "Headers/Cog.h"
+#include "Headers/Utilities.h"
 
 using namespace std;
 
