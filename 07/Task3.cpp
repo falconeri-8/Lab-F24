@@ -24,7 +24,7 @@ int main()
         if (temperature > 20 && temperature <= 30) {
             throw 504;
         }
-        if (temperature > 30 && temperature <= 40) {
+        if (temperature > 30 && temperature < 40) {
             throw 505;
         }
         if (temperature >= 40) {
