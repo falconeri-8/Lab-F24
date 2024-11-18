@@ -26,4 +26,6 @@ int main()
     }
     cout << endl;
     reverseArray(arr, 5);
+
+    return 0;
 }
