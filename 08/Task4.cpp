@@ -7,6 +7,7 @@ int main()
     int sum = 0;
     float average = 0;
 
+    // Using a range loop
     for (int i : arr)
     {
         sum += i;

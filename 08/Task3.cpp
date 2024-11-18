@@ -7,6 +7,7 @@ void reverseArray(int arr[], int size)
 
     for (int i = 0; i < size; i++)
     {
+        // Assign at index i of reverseArr from last index of arr
         reverseArr[i] = arr[size - i - 1];
     }
     cout << "Reversed Array: ";
@@ -20,6 +21,7 @@ int main()
 {
     int arr[5] = {1, 2, 3, 4, 5};
     cout << "Array: ";
+
     for (int i = 0; i < 5; i++)
     {
         cout << arr[i] << " ";

@@ -10,6 +10,7 @@ int main() {
 
     bool found = false;
 
+    // Iterate through the array to match values
     for(int i = 0; i < 10; i++) {
         if (arr[i] == searchElement) {
             cout << "Element found at index " << i << endl;
