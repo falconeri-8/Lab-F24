@@ -2,18 +2,18 @@
 
 using namespace std;
 
-int pass()
+int pass(int& num)
 {
 
+    return 0;
 }
 
 int main()
 {
 
     int number = 5;
-    int* pNumber = &number;
 
-    Cog (pNumber, 0);
+    pass(number);
 
     return 0;
 }
