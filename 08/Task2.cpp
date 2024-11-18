@@ -19,6 +19,7 @@ int main()
             min = arr[i];
         }
     }
-
+    cout << "Minimum value is " << min << endl;
+    cout << "Maximum value is " << max << endl;
     return 0;
 }
