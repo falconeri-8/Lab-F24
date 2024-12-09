@@ -1,5 +1,4 @@
 #include <iostream>
-
 using namespace std;
 
 const int ROWS = 3;
@@ -85,6 +84,20 @@ int ColumnSum(int arr[ROWS][COLS], int col) {
     return total;
 }
 
+void DisplayMenu() {
+    cout << "\nMenu:" << endl;
+    cout << "1. Get highest value in a row" << endl;
+    cout << "2. Get lowest value in a row" << endl;
+    cout << "3. Get highest value in a column" << endl;
+    cout << "4. Get lowest value in a column" << endl;
+    cout << "5. Calculate left diagonal total" << endl;
+    cout << "6. Calculate right diagonal total" << endl;
+    cout << "7. Calculate row sum" << endl;
+    cout << "8. Calculate column sum" << endl;
+    cout << "9. Exit" << endl;
+    cout << "Choose an option: ";
+}
+
 int main() {
     int testArray[ROWS][COLS] = {
         {10, 20, 30},
@@ -92,23 +105,61 @@ int main() {
         {90, 100, 110},
     };
 
+    int choice, row, col;
     int* ptr = nullptr;
 
-    int row = 1, col = 2;
-    cout << "Highest in Row " << row << ": "
-              << GetHighestInRow(testArray, row, ptr) << ", Address: " << ptr << endl;
-    cout << "Lowest in Row " << row << ": "
-              << GetLowestInRow(testArray, row, ptr) << ", Address: " << ptr << endl;
-    cout << "Highest in Column " << col << ": "
-              << GetHighestInColumn(testArray, col, ptr) << ", Address: " << ptr << endl;
-    cout << "Lowest in Column " << col << ": "
-              << GetLowestInColumn(testArray, col, ptr) << ", Address: " << ptr << endl;
+    do {
+        DisplayMenu();
+        cin >> choice;
 
-    cout << "Left Diagonal Total: " << LeftDiagonalTotal(testArray) << endl;
-    cout << "Right Diagonal Total: " << RightDiagonalTotal(testArray) << endl;
-
-    cout << "Row " << row << " Sum: " << RowSum(testArray, row) << endl;
-    cout << "Column " << col << " Sum: " << ColumnSum(testArray, col) << endl;
+        switch (choice) {
+            case 1:
+                cout << "Enter row number (0-2): ";
+                cin >> row;
+                cout << "Highest in Row " << row << ": "
+                     << GetHighestInRow(testArray, row, ptr) << ", Address: " << ptr << endl;
+                break;
+            case 2:
+                cout << "Enter row number (0-2): ";
+                cin >> row;
+                cout << "Lowest in Row " << row << ": "
+                     << GetLowestInRow(testArray, row, ptr) << ", Address: " << ptr << endl;
+                break;
+            case 3:
+                cout << "Enter column number (0-2): ";
+                cin >> col;
+                cout << "Highest in Column " << col << ": "
+                     << GetHighestInColumn(testArray, col, ptr) << ", Address: " << ptr << endl;
+                break;
+            case 4:
+                cout << "Enter column number (0-2): ";
+                cin >> col;
+                cout << "Lowest in Column " << col << ": "
+                     << GetLowestInColumn(testArray, col, ptr) << ", Address: " << ptr << endl;
+                break;
+            case 5:
+                cout << "Left Diagonal Total: " << LeftDiagonalTotal(testArray) << endl;
+                break;
+            case 6:
+                cout << "Right Diagonal Total: " << RightDiagonalTotal(testArray) << endl;
+                break;
+            case 7:
+                cout << "Enter row number (0-2): ";
+                cin >> row;
+                cout << "Row " << row << " Sum: " << RowSum(testArray, row) << endl;
+                break;
+            case 8:
+                cout << "Enter column number (0-2): ";
+                cin >> col;
+                cout << "Column " << col << " Sum: " << ColumnSum(testArray, col) << endl;
+                break;
+            case 9:
+                cout << "Exiting program..." << endl;
+                break;
+            default:
+                cout << "Invalid option. Please try again." << endl;
+        }
+    } while (choice != 9);
 
     return 0;
 }
