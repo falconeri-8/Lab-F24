@@ -5,9 +5,8 @@
 using namespace std;
 
 const int NUM_MONTHS = 12;
-const int SEATS_PER_MONTH = 10;  // Example: 10 seats per month
+const int SEATS_PER_MONTH = 25;
 
-// Function prototypes
 void loadDataFromFile(int seats[NUM_MONTHS][SEATS_PER_MONTH], const string &filename);
 void saveDataToFile(int seats[NUM_MONTHS][SEATS_PER_MONTH], const string &filename);
 void displaySeats(int seats[NUM_MONTHS][SEATS_PER_MONTH]);
@@ -15,13 +14,11 @@ void modifySeats(int seats[NUM_MONTHS][SEATS_PER_MONTH]);
 void initializeSeats(int seats[NUM_MONTHS][SEATS_PER_MONTH]);
 
 int main() {
-    int seats[NUM_MONTHS][SEATS_PER_MONTH];  // 2D array to hold the seating arrangement for 12 months
+    int seats[NUM_MONTHS][SEATS_PER_MONTH];
     string filename = "seating_data.txt";
 
-    // Initialize the seats to 0 (unoccupied)
     initializeSeats(seats);
 
-    // Load data from file (if any)
     loadDataFromFile(seats, filename);
 
     int choice;
@@ -58,7 +55,7 @@ int main() {
 void initializeSeats(int seats[NUM_MONTHS][SEATS_PER_MONTH]) {
     for (int i = 0; i < NUM_MONTHS; i++) {
         for (int j = 0; j < SEATS_PER_MONTH; j++) {
-            seats[i][j] = 0;  // Initialize all seats as unoccupied (0)
+            seats[i][j] = 0;
         }
     }
 }
