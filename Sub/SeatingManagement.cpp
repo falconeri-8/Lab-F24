@@ -5,7 +5,7 @@
 using namespace std;
 
 const int NUM_MONTHS = 12;
-const int SEATS_PER_MONTH = 25;
+const int SEATS_PER_MONTH = 31;
 
 void loadDataFromFile(int seats[NUM_MONTHS][SEATS_PER_MONTH], const string &filename);
 void saveDataToFile(int seats[NUM_MONTHS][SEATS_PER_MONTH], const string &filename);
