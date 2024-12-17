@@ -14,9 +14,9 @@ int main()
             array[i][j] = rand() % 6;
         }
     }
-
     cout << "Enter number to check in array" << endl;
     cin >> num;
+    cout << endl;
 
     for (int i = 0; i < 5; i++)
     {
@@ -25,10 +25,21 @@ int main()
             if (array[i][j] == num)
             {
                 cout << "Found at Row " << i << " Column " << j << endl;
+                //return 1;
             }
         }
     }
+    cout << endl;
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            cout << array[i][j] << " ";
+        }
+        cout << endl;
+    }
 
+    return 0;
 }
 
 // dynamic memory, reference, searching

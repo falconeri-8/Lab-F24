@@ -1,132 +1,176 @@
 #include <iostream>
 #include <fstream>
-#include <string>
-
+#include <cstring>
 using namespace std;
 
-const int NUM_MONTHS = 12;
-const int SEATS_PER_MONTH = 31;
+const int ROWS = 10;
+const int SEATS_PER_ROW = 10;
+const int MAX_DATE_LENGTH = 6; // For "DD-MM" format
 
-void loadDataFromFile(int seats[NUM_MONTHS][SEATS_PER_MONTH], const string &filename);
-void saveDataToFile(int seats[NUM_MONTHS][SEATS_PER_MONTH], const string &filename);
-void displaySeats(int seats[NUM_MONTHS][SEATS_PER_MONTH]);
-void modifySeats(int seats[NUM_MONTHS][SEATS_PER_MONTH]);
-void initializeSeats(int seats[NUM_MONTHS][SEATS_PER_MONTH]);
-
-int main() {
-    int seats[NUM_MONTHS][SEATS_PER_MONTH];
-    string filename = "seating_data.txt";
-
-    initializeSeats(seats);
-
-    loadDataFromFile(seats, filename);
-
-    int choice;
-    do {
-        cout << "\nSeating Management System\n";
-        cout << "1. Display Seating for All Months\n";
-        cout << "2. Modify Seating\n";
-        cout << "3. Save Data to File\n";
-        cout << "4. Exit\n";
-        cout << "Enter your choice: ";
-        cin >> choice;
-
-        switch (choice) {
-            case 1:
-                displaySeats(seats);
-                break;
-            case 2:
-                modifySeats(seats);
-                break;
-            case 3:
-                saveDataToFile(seats, filename);
-                break;
-            case 4:
-                cout << "Exiting program.\n";
-                break;
-            default:
-                cout << "Invalid choice! Please try again.\n";
-        }
-    } while (choice != 4);
-
-    return 0;
-}
-
-void initializeSeats(int seats[NUM_MONTHS][SEATS_PER_MONTH]) {
-    for (int i = 0; i < NUM_MONTHS; i++) {
-        for (int j = 0; j < SEATS_PER_MONTH; j++) {
-            seats[i][j] = 0;
+void initializeSeats(char seats[ROWS][SEATS_PER_ROW]) {
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < SEATS_PER_ROW; j++) {
+            seats[i][j] = 'A';
         }
     }
 }
 
-void loadDataFromFile(int seats[NUM_MONTHS][SEATS_PER_MONTH], const string &filename) {
-    ifstream inputFile(filename);
-    if (inputFile) {
-        for (int i = 0; i < NUM_MONTHS; i++) {
-            for (int j = 0; j < SEATS_PER_MONTH; j++) {
-                inputFile >> seats[i][j];
-            }
-        }
-        inputFile.close();
-        cout << "Data loaded from file.\n";
-    } else {
-        cout << "No existing data file found. Using default seating arrangement.\n";
-    }
-}
-
-void saveDataToFile(int seats[NUM_MONTHS][SEATS_PER_MONTH], const string &filename) {
-    ofstream outputFile(filename);
-    if (outputFile) {
-        for (int i = 0; i < NUM_MONTHS; i++) {
-            for (int j = 0; j < SEATS_PER_MONTH; j++) {
-                outputFile << seats[i][j] << " ";
-            }
-            outputFile << endl;
-        }
-        outputFile.close();
-        cout << "Data saved to file.\n";
-    } else {
-        cout << "Error opening file for saving.\n";
-    }
-}
-
-void displaySeats(int seats[NUM_MONTHS][SEATS_PER_MONTH]) {
-    cout << "\nSeating Arrangement for All Months:\n";
-    for (int i = 0; i < NUM_MONTHS; i++) {
-        cout << "Month " << i + 1 << ": ";
-        for (int j = 0; j < SEATS_PER_MONTH; j++) {
-            cout << (seats[i][j] == 0 ? "Empty " : "Occupied ");
+void displaySeats(char seats[ROWS][SEATS_PER_ROW]) {
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < SEATS_PER_ROW; j++) {
+            cout << "R" << i + 1 << "S" << j + 1 << ":" << seats[i][j] << " ";
         }
         cout << endl;
     }
 }
 
-void modifySeats(int seats[NUM_MONTHS][SEATS_PER_MONTH]) {
-    int month, seat, status;
-    cout << "Enter the month number (1-12): ";
-    cin >> month;
-    if (month < 1 || month > 12) {
-        cout << "Invalid month number.\n";
-        return;
+bool readFromFile(const char* date, char seats[ROWS][SEATS_PER_ROW], const char* filename) {
+    ifstream file(filename);
+    char fileDate[MAX_DATE_LENGTH];
+    char seatStatus;
+
+    if (!file) {
+        return false;
     }
 
-    cout << "Enter the seat number (1-10): ";
-    cin >> seat;
-    if (seat < 1 || seat > 10) {
-        cout << "Invalid seat number.\n";
-        return;
+    while (file >> fileDate) {
+        if (strcmp(fileDate, date) == 0) {
+            for (int i = 0; i < ROWS; i++) {
+                for (int j = 0; j < SEATS_PER_ROW; j++) {
+                    file >> seatStatus;
+                    seats[i][j] = seatStatus;
+                }
+            }
+            file.close();
+            return true;
+        }
+    }
+    file.close();
+    return false;
+}
+
+void writeToFile(const char* date, char seats[ROWS][SEATS_PER_ROW], const char* filename) {
+    ifstream file(filename);
+    ofstream tempFile("temp.txt");
+    char fileDate[MAX_DATE_LENGTH];
+    bool dateFound = false;
+
+    if (file) {
+        while (file >> fileDate) {
+            if (strcmp(fileDate, date) == 0) {
+                dateFound = true;
+                tempFile << date << endl;
+                for (int i = 0; i < ROWS; i++) {
+                    for (int j = 0; j < SEATS_PER_ROW; j++) {
+                        tempFile << seats[i][j] << " ";
+                    }
+                    tempFile << endl;
+                }
+            } else {
+                tempFile << fileDate << endl;
+                for (int i = 0; i < ROWS; i++) {
+                    for (int j = 0; j < SEATS_PER_ROW; j++) {
+                        char seatStatus;
+                        file >> seatStatus;
+                        tempFile << seatStatus << " ";
+                    }
+                    tempFile << endl;
+                }
+            }
+        }
     }
 
-    cout << "Enter 1 for Occupied or 0 for Empty: ";
-    cin >> status;
-
-    if (status != 0 && status != 1) {
-        cout << "Invalid status.\n";
-        return;
+    if (!dateFound) {
+        tempFile << date << endl;
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < SEATS_PER_ROW; j++) {
+                tempFile << seats[i][j] << " ";
+            }
+            tempFile << endl;
+        }
     }
 
-    // Modify seat status
-    seats[month - 1][seat - 1] = status;
-    cout << "Seat status updated.\n";
+    file.close();
+    tempFile.close();
+
+    remove(filename);
+    rename("temp.txt", filename);
+}
+
+void bookSeat(char seats[ROWS][SEATS_PER_ROW], const char* seatCode) {
+    int row = seatCode[1] - '1'; // Convert '1'-'10' to 0-9
+    int col = seatCode[3] - '1'; // Convert '1'-'10' to 0-9
+
+    if (row >= 0 && row < ROWS && col >= 0 && col < SEATS_PER_ROW) {
+        if (seats[row][col] == 'A') {
+            seats[row][col] = 'B';
+            cout << "Seat " << seatCode << " booked successfully." << endl;
+        } else {
+            cout << "Seat " << seatCode << " is already booked!" << endl;
+        }
+    } else {
+        cout << "Invalid seat code!" << endl;
+    }
+}
+
+void cancelSeat(char seats[ROWS][SEATS_PER_ROW], const char* seatCode) {
+    int row = seatCode[1] - '1';
+    int col = seatCode[3] - '1';
+
+    if (row >= 0 && row < ROWS && col >= 0 && col < SEATS_PER_ROW) {
+        if (seats[row][col] == 'B') {
+            seats[row][col] = 'A';
+            cout << "Seat " << seatCode << " canceled successfully." << endl;
+        } else {
+            cout << "Seat " << seatCode << " is not booked!" << endl;
+        }
+    } else {
+        cout << "Invalid seat code!" << endl;
+    }
+}
+
+int main() {
+    const char* filename = "reservations.txt";
+    char seats[ROWS][SEATS_PER_ROW];
+    char date[MAX_DATE_LENGTH];
+    char seatCode[6];
+    int choice;
+
+    cout << "Enter date (DD-MM): ";
+    cin >> date;
+
+    if (!readFromFile(date, seats, filename)) {
+        initializeSeats(seats);
+    }
+
+    do {
+        cout << "\n1. Display Seats\n2. Book a Seat\n3. Cancel a Seat\n4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            displaySeats(seats);
+            break;
+        case 2:
+            cout << "Enter seat code to book (e.g., R1S1): ";
+            cin >> seatCode;
+            bookSeat(seats, seatCode);
+            writeToFile(date, seats, filename);
+            break;
+        case 3:
+            cout << "Enter seat code to cancel (e.g., R1S1): ";
+            cin >> seatCode;
+            cancelSeat(seats, seatCode);
+            writeToFile(date, seats, filename);
+            break;
+        case 4:
+            cout << "Exiting..." << endl;
+            break;
+        default:
+            cout << "Invalid choice! Try again." << endl;
+        }
+    } while (choice != 4);
+
+    return 0;
 }
