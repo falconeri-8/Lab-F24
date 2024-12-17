@@ -1,11 +1,11 @@
 #include <iostream>
 #include <fstream>
-#include <cstring>
+#include <cstring> // For C-style string functions
 using namespace std;
 
 const int ROWS = 10;
 const int SEATS_PER_ROW = 10;
-const int MAX_DATE_LENGTH = 6; // For "DD-MM" format
+const int MAX_DATE_LENGTH = 6; // "DD-MM" format
 
 void initializeSeats(char seats[ROWS][SEATS_PER_ROW]) {
     for (int i = 0; i < ROWS; i++) {
